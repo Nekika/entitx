@@ -1,0 +1,55 @@
+package {{ .Package }}
+
+import (
+    "github.com/jmoiron/sqlx"
+    "github.com/nekika/repositorx"
+)
+
+type {{ .Record }} struct {
+    Id int `db:"id"`
+}
+
+type {{ .Entity }} struct {
+    Id int
+}
+
+type {{ .Repository }} interface {
+    Create(er {{ .Record }}) ({{ .Record }}, error)
+    Delete(er {{ .Record }}) error
+    FindById(id int) ({{ .Record }}, error)
+    Update(er {{ .Record }}) ({{ .Record }}, error)
+}
+
+type {{ .DefaultRepository }} struct {
+    core repositorx.Core[{{ .Record }}]
+}
+
+func New{{ .DefaultRepository }}(db *sqlx.DB) {{ .DefaultRepository }} {
+    return {{ .DefaultRepository }}{
+        core: repositorx.NewCore[{{ .Record }}](db),
+    }
+}
+
+func (r {{ .DefaultRepository }}) Create(er {{ .Record }}) ({{ .Record }}, error) {
+    // TODO
+    panic("not implemented")
+}
+
+func (r {{ .DefaultRepository }}) Delete(er {{ .Record }}) error {
+    // TODO
+    panic("not implemented")
+}
+
+func (r {{ .DefaultRepository }}) FindById(id int) ({{ .Record }}, error) {
+    // TODO
+    panic("not implemented")
+}
+
+func (r {{ .DefaultRepository }}) Update(er {{ .Record }}) ({{ .Record }}, error) {
+    // TODO
+    panic("not implemented")
+}
+
+type {{ .Service }} struct {
+    {{ .DefaultRepository }} {{ .DefaultRepository }}
+}
